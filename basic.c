@@ -21,11 +21,13 @@ CYCLES main_memory_access_latency()
 
         if(curr_med == prev_med && prev_med == prev_prev_med)
         {
-            printf("med = %u, max = %u, min = %u \n", curr_med, latencies[count-1], latencies[0]);
-            free(tmp_for_address);
+            printf("Median: %u\n", curr_med);
+			printf("Max latency: %u\n", latencies[count - 1]);
+			printf("Min latency: %u\n", latencies[0]);
+            free(memory_address);
             return curr_med;
         }
-		
+
         prev_prev_med = prev_med;
         prev_med = curr_med;
     }
