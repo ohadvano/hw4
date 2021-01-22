@@ -16,8 +16,8 @@ CYCLES main_memory_access_latency()
         if(count == 1)
             continue;
 
-        array_sort(latencies, elem_num);
-        cur_med = find_median(latencies, elem_num);
+        array_sort(latencies, count);
+        cur_med = find_median(latencies, count);
 
         if(cur_med == prev_med && prev_med == prev_prev_med)
         {
