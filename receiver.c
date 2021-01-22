@@ -48,7 +48,7 @@ inline bit receive_bit_over_covert_channel()
     }
 }
 
-int receive_val_over_covert_channel()
+char receive_val_over_covert_channel()
 {
 	bit b;
 	char ret_val;
@@ -82,7 +82,7 @@ int receive_val_over_covert_channel()
 
 void receive_over_covert_channel()
 {
-	int val;
+	char val;
 
 	do {
 	    // Wait for new data from sender
