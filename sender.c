@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 
     time_t transmission_end_time = time(0);
     time_t total_transmission_time = transmission_end_time - transmission_start_time;
-    printf("Transmission time: %u seconds", total_transmission_time);
+    printf("Transmission time: %lu seconds", total_transmission_time);
 
     return 0;
 }
