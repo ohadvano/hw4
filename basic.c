@@ -25,12 +25,13 @@ CYCLES main_memory_access_latency()
             free(tmp_for_address);
             return curr_med;
         }
+		
         prev_prev_med = prev_med;
         prev_med = curr_med;
     }
-    printf("wrong values: med = %u, max = %u, min = %u \n", curr_med, latencies[count-1], latencies[0]);
-    free(tmp_for_address);
-    return curr_med; // won't get here
+
+    free(memory_address);
+    return -1;
 }
 
 CYCLES last_level_cache_access_latency()
