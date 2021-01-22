@@ -15,7 +15,7 @@ inline void send_bit_over_covert_channel(bit val)
     {
         if(val == 1)
         {
-            //printf("s11");
+            printf("flush");
             clflush(addr_send);
         }
         else if (val == 0)
