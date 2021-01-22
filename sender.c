@@ -40,23 +40,13 @@ int main(int argc, char **argv)
     int val;
     init_covert_channel();
 
-    time_t transmission_start_time = 0;
-
     do 
     {
         val = getchar();
-        if (transmission_start_time == 0)
-            transmission_start_time = time(0);
-
 	    send_byte_over_covert_channel(val);
     }
     while(val != EOF);
 
     notify_receiver();
-
-    time_t transmission_end_time = time(0);
-    time_t total_transmission_time = transmission_end_time - transmission_start_time;
-    printf("Transmission time: %lu seconds", total_transmission_time);
-
     return 0;
 }
