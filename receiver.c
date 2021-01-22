@@ -14,6 +14,7 @@ inline bit receive_bit_over_covert_channel()
 	uint64_t sum = 0;
 	int count = ITERATIONS;
     // Check each bit ITERATION times before determining if 0 or 1
+	printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr15\n");
 	for(int i = 0; i <ITERATIONS; i++)
 	{
 		start = rdtsc();
@@ -53,24 +54,24 @@ int receive_val_over_covert_channel()
 	char ret_val;
 	char* bits = (bit*)calloc(8, sizeof(char));
 
-	//printf("r8");
+	//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr8\n");
 	for(int i = 0; i < BYTE_SIZE ; i++)
 	{
-		//printf("r9");
+		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr9\n");
 		b = receive_bit_over_covert_channel();
-		//printf("r10");
+		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr10\n");
 		bits[i] = b;
 		// If last bit, finish to write down the full byte before notifying
 		if(i < BYTE_SIZE - 1)
         {
-			//printf("r11");
+			//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr11\n");
             notify_sender();
-			//printf("r12");
+			//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr12\n");
             receiver_wait_for_notification();
-			//printf("r13");
+			//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr13\n");
         }
 
-		//printf("r14");
+		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr14\n");
 	}
 
 	bits_to_byte(bits, &ret_val);
@@ -85,28 +86,28 @@ void receive_over_covert_channel()
 
 	do {
 	    // Wait for new data from sender
-		//printf("r4");
+		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr4\n");
         receiver_wait_for_notification();
-		//printf("r5");
+		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr5\n");
 		val = receive_val_over_covert_channel();
-		//printf("r6");
+		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr6\n");
 		if (val != EOF) {
 			putchar(val);
 		}
 		// Finish the whole byte, now ask for a new byte/finish
-		//printf("r7");
+		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr7\n");
         notify_sender();
 	} while (val != EOF);
-	printf("\n");
+	//printf("\n");
 }
 
 int main(int argc, char **argv)
 {
-	//printf("r1");
+	//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr1\n");
 	init_covert_channel();
-	//printf("r2");
+	//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr2\n");
 	receive_over_covert_channel();
-	//printf("r3");
+	//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr3\n");
 
 	return 0;
 }
