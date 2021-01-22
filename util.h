@@ -52,6 +52,7 @@ int receiver_wait_for_notification();
 
 void swap(int *p, int *q);
 void sort(CYCLES *array , int n);
+void sort2(CYCLES *array , int n);
 void maccess(ADDR_PTR p);
 uint64_t rdtsc_with_fence();
 
