@@ -8,7 +8,7 @@ CYCLES main_memory_access_latency()
 	CYCLES latencies[MAX_ITERATIONS] = {0}; 
 
 	int count = 1;
-    for (; i <= MAX_ITERATIONS; i++)
+    for (; count <= MAX_ITERATIONS; count++)
     {
         clflush((ADDR_PTR)memory_address);
         latencies[i] = measure_access_time_to_addr((ADDR_PTR)memory_address);
