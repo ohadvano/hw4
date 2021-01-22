@@ -16,10 +16,6 @@ inline void send_bit_over_covert_channel(bit val)
         {
             clflush(address);
         }
-        else if (val == 0)
-        {
-            maccess(address);
-        }
 
         notify_receiver();
         sender_wait_for_notification();
