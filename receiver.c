@@ -40,15 +40,17 @@ inline bit receive_bit_over_covert_channel()
 
     if((sum/count) <= MISS_LATENCY)
     {
+		printf("receive bit 0\n");
         return 0;
     }
     else
     {
+		printf("receive bit 1\n");
         return 1;
     }
 }
 
-char receive_val_over_covert_channel()
+int receive_val_over_covert_channel()
 {
 	bit b;
 	char ret_val;
@@ -82,7 +84,7 @@ char receive_val_over_covert_channel()
 
 void receive_over_covert_channel()
 {
-	char val;
+	int val;
 
 	do {
 	    // Wait for new data from sender

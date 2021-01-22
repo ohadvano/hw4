@@ -15,12 +15,12 @@ inline void send_bit_over_covert_channel(bit val)
     {
         if(val == 1)
         {
-            printf("flush");
+            printf("send bit 1\n");
             clflush(addr_send);
         }
         else if (val == 0)
         {
-            //printf("s12");
+            printf("send bit 0\n");
             maccess(addr_send);
         }
 
