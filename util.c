@@ -129,7 +129,7 @@ int receiver_wait_for_notification()
     }
 }
 
-void sort(CYCLES *array , int n)
+void sort2(CYCLES *array , int n)
 { 
     int i, j, temp=0;
     for(i = 0; i < n; i++)
@@ -146,21 +146,28 @@ void sort(CYCLES *array , int n)
     }
 }
 
-CYCLES find_median(CYCLES array[] , int n)
+void swap(int *p, int *q) 
 {
-    int median_index = (n + 1) / 2 - 1;
-    CYCLES median2 = array[median_index];
-
-    CYCLES median = 0;
-    if(n % 2 == 0)
-        median = (array[(n - 1) / 2] + array[n / 2]) / 2.0;
-    else
-        median = array[n / 2];
-
-    assert(median == median2);
-    
-    return median;
+   int t;
+   
+   t=*p; 
+   *p=*q; 
+   *q=t;
 }
+
+void sort(CYCLES *a, int n) 
+{ 
+   int i , j, temp;
+   for(i = 0;i < n-1;i++) 
+   {
+      for(j = 0;j < n-i-1;j++) 
+      {
+         if(a[j] > a[j+1])
+            swap(&a[j],&a[j+1]);
+      }
+   }
+}
+
 
 void maccess(ADDR_PTR addr)
 {

@@ -50,8 +50,8 @@ int sender_wait_for_notification();
 // Blocks until notify_receiver is called
 int receiver_wait_for_notification();
 
+void swap(int *p, int *q);
 void sort(CYCLES *array , int n);
-CYCLES find_median(CYCLES array[] , int n);
 void maccess(ADDR_PTR p);
 uint64_t rdtsc_with_fence();
 
