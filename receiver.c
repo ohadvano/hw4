@@ -1,5 +1,7 @@
 #include "util.h"
 
+ADDR_PTR addr_rec;
+
 void init_covert_channel()
 {
 	addr_rec = (ADDR_PTR)strtok;
