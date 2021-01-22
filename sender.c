@@ -40,6 +40,8 @@ int main(int argc, char **argv)
     int val;
     init_covert_channel();
 
+    time_t transmission_start_time = time(0);
+
     do 
     {
         val = getchar();
@@ -48,5 +50,10 @@ int main(int argc, char **argv)
     while(val != EOF);
 
     notify_receiver();
+
+    time_t transmission_end_time = time(0);
+    time_t total_transmission_time = transmission_end_time - transmission_start_time;
+    printf("Transmission time: %u seconds", total_transmission_time);
+
     return 0;
 }
