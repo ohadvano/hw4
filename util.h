@@ -56,5 +56,7 @@ void swap(int *p, int *q);
 void sort(CYCLES *array , int n);
 void access_by_address(ADDR_PTR p);
 uint64_t rdtsc_with_fence();
+CYCLES find_median(CYCLES array[] , int n);
+void array_sort(CYCLES *array , int n);
 
 #endif

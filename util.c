@@ -136,7 +136,20 @@ void swap(int *p, int *q)
     *q = t;
 }
 
-void sort(CYCLES *array, int n) 
+void sort(CYCLES *a, int n) 
+{ 
+    int i , j, temp;
+    for(i = 0; i < n - 1; i++) 
+    {
+        for(j = 0; j < n - i - 1; j++) 
+        {
+            if(a[j] > a[j + 1])
+            swap(&a[j], &a[j + 1]);
+        }
+    }
+}
+
+void array_sort(CYCLES *array , int n)
 { 
     int i, j, temp=0;
     for(i=0 ; i<n ; i++)
@@ -151,6 +164,17 @@ void sort(CYCLES *array, int n)
             }
         }
     }
+}
+
+CYCLES find_median(CYCLES array[] , int n)
+{
+    CYCLES median=0;
+    if(n%2 == 0)
+        median = (array[(n-1)/2] + array[n/2])/2.0;
+    else
+        median = array[n/2];
+
+    return median;
 }
 
 void access_by_address(ADDR_PTR addr)
