@@ -36,7 +36,7 @@ void send_byte_over_covert_channel(int val)
         send_bit_over_covert_channel(bits_array[i]);
     }
 
-    free(bits);
+    free(bits_array);
 }
 
 int main(int argc, char **argv)
