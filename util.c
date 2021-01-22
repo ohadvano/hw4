@@ -129,45 +129,25 @@ int receiver_wait_for_notification()
     }
 }
 
-void sort2(CYCLES *array , int n)
-{ 
-    int i, j, temp=0;
-    for(i = 0; i < n; i++)
-    {
-        for(j = 0; j < n - 1; j++)
-        {
-            if(array[j] > array[j + 1])
-            {
-                temp = array[j];
-                array[j] = array[j + 1];
-                array[j + 1] = temp;
-            }
-        }
-    }
-}
-
 void swap(int *p, int *q) 
 {
-   int t;
-   
-   t=*p; 
-   *p=*q; 
-   *q=t;
+    int t = *p; 
+    *p = *q; 
+    *q = t;
 }
 
 void sort(CYCLES *a, int n) 
 { 
-   int i , j, temp;
-   for(i = 0;i < n-1;i++) 
-   {
-      for(j = 0;j < n-i-1;j++) 
-      {
-         if(a[j] > a[j+1])
-            swap(&a[j],&a[j+1]);
-      }
-   }
+    int i , j, temp;
+    for(i = 0; i < n - 1; i++) 
+    {
+        for(j = 0; j < n - i - 1; j++) 
+        {
+            if(a[j] > a[j + 1])
+            swap(&a[j], &a[j + 1]);
+        }
+    }
 }
-
 
 void maccess(ADDR_PTR addr)
 {

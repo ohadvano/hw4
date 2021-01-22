@@ -15,7 +15,8 @@ inline bit receive_bit_over_covert_channel()
 	for(int i = 0; i < ITERATIONS_PER_BIT; i++)
 	{
 		start = rdtsc_with_fence();
-		maccess(shared_covert_address);
+		*shared_covert_address = 0;
+		// maccess(shared_covert_address);
 		end = rdtsc_with_fence();
 
 		uint64_t diff = end - start;
