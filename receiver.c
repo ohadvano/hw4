@@ -74,16 +74,18 @@ int receive_val_over_covert_channel()
 void receive_over_covert_channel()
 {
 	int val;
-       	do {
-		// Read the file over the covert-channel bit-by-bit.
-		// 
-		receiver_wait_for_notification();
+
+	do {
+	    // Wait for new data from sender
+        receiver_wait_for_notification();
 		val = receive_val_over_covert_channel();
 		if (val != EOF) {
 			putchar(val);
-		}		
-		notify_sender();
+		}
+		// Finish the whole byte, now ask for a new byte/finish
+        notify_sender();
 	} while (val != EOF);
+	printf("\n");
 }
 
 int main(int argc, char **argv)
