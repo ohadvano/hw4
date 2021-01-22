@@ -35,7 +35,7 @@ void clflush(ADDR_PTR addr)
 /* Extracts 8 bits from a byte  */
 void byte_to_bits(char input, char* bits)
 {
-	for(int i = 0; i < BYTE_SIZE; i++) 
+	for(int i = 0; i < BYTE; i++) 
 	{
 		bits[i] = ((input >> i) & 0x01);
 	}
@@ -45,7 +45,7 @@ void byte_to_bits(char input, char* bits)
 void bits_to_byte(char* bits, char* output)
 {
 	char res = 0;
-	for(int i = 0; i < BYTE_SIZE; i++) 
+	for(int i = 0; i < BYTE; i++) 
 	{
 		res += bits[i] << i;
 	}
