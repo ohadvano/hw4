@@ -26,7 +26,7 @@
 typedef char bit;
 
 #ifndef MISS_LATENCY
-#define MISS_LATENCY 130
+#define MISS_LATENCY 238
 #endif
 
 // Measure access time to the given address
