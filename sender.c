@@ -28,7 +28,7 @@ inline void send_bit_over_covert_channel(bit val)
 
 void send_byte_over_covert_channel(int val)
 {
-    char* bits_array = (char*)malloc(BYTE, sizeof(char));
+    char* bits_array = (char*)malloc(BYTE * sizeof(char));
     byte_to_bits(val, bits_array);
 
     for(int i = 0; i < BYTE; i++)
