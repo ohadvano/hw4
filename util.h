@@ -53,6 +53,6 @@ int receiver_wait_for_notification();
 void sort(CYCLES *array , int n);
 CYCLES find_median(CYCLES array[] , int n);
 void maccess(ADDR_PTR p);
-uint64_t rdtsc();
+uint64_t rdtsc_with_fence();
 
 #endif
