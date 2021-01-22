@@ -93,6 +93,7 @@ void receive_over_covert_channel()
 		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr6\n");
 		if (val != EOF) {
 			putchar(val);
+			printf("\n");
 		}
 		// Finish the whole byte, now ask for a new byte/finish
 		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr7\n");
