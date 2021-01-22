@@ -37,15 +37,12 @@ inline bit receive_bit_over_covert_channel()
         }
 	}
 
-	printf("sum/count: %ld\n", sum/count);
     if((sum/count) <= MISS_LATENCY)
     {
-		printf("receive bit 0\n");
         return 0;
     }
     else
     {
-		printf("receive bit 1\n");
         return 1;
     }
 }
