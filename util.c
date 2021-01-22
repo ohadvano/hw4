@@ -136,15 +136,19 @@ void swap(int *p, int *q)
     *q = t;
 }
 
-void sort(CYCLES *a, int n) 
+void sort(CYCLES *array, int n) 
 { 
-    int i , j, temp;
-    for(i = 0; i < n - 1; i++) 
+    int i, j, temp=0;
+    for(i=0 ; i<n ; i++)
     {
-        for(j = 0; j < n - i - 1; j++) 
+        for(j=0 ; j<n-1 ; j++)
         {
-            if(a[j] > a[j + 1])
-            swap(&a[j], &a[j + 1]);
+            if(array[j]>array[j+1])
+            {
+                temp        = array[j];
+                array[j]    = array[j+1];
+                array[j+1]  = temp;
+            }
         }
     }
 }
