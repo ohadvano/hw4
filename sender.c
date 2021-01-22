@@ -38,7 +38,6 @@ void send_byte_over_covert_channel(int val)
 
     for(int i = 0; i < BYTE_SIZE; i++)
     {
-        printf("bit: %d\n", bits[i]);
         send_bit_over_covert_channel(bits[i]);
     }
 

@@ -47,9 +47,7 @@ void bits_to_byte(char* bits, char* output)
 	char res = 0;
 	for(int i = 0; i < 8; i++) 
 	{
-        printf("bits_to_byte, bit %d: %d\n", i, bits[i]);
 		res += bits[i] << i;
-        printf("res: %d\n", res);
 	}
 	
 	*output = res;

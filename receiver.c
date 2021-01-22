@@ -14,7 +14,6 @@ inline bit receive_bit_over_covert_channel()
 	uint64_t sum = 0;
 	int count = ITERATIONS;
     // Check each bit ITERATION times before determining if 0 or 1
-	printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr15\n");
 	for(int i = 0; i <ITERATIONS; i++)
 	{
 		start = rdtsc();
