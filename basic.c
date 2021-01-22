@@ -11,7 +11,7 @@ CYCLES main_memory_access_latency()
     for (; count <= LATENCIES_CHECK_ITERATIONS; count++)
     {
         clflush((ADDR_PTR)tmp_for_address);
-        latencies[i] = measure_access_time_to_addr((ADDR_PTR)tmp_for_address);
+        latencies[count] = measure_access_time_to_addr((ADDR_PTR)tmp_for_address);
 
         if(count == 1)
             continue;
