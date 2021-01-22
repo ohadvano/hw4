@@ -74,7 +74,7 @@ void receive_over_covert_channel()
 			putchar(val);
 		}
 
-        //notify_sender();
+        notify_sender();
 	} 
 	while (val != EOF);
 }
