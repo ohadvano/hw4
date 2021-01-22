@@ -149,17 +149,6 @@ void sort(CYCLES *a, int n)
     }
 }
 
-CYCLES find_median(CYCLES array[] , int n)
-{
-    CYCLES median=0;
-    if(n%2 == 0)
-        median = (array[(n-1)/2] + array[n/2])/2.0;
-    else
-        median = array[n/2];
-
-    return median;
-}
-
 void access_by_address(ADDR_PTR addr)
 {
     asm volatile ("movq (%0), %%rax\n"
