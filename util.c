@@ -128,3 +128,49 @@ int receiver_wait_for_notification()
         while(*receiver_lock) __asm__("pause");
     }
 }
+
+void array_sort(CYCLES *array , int n)
+{ 
+    int i, j, temp=0;
+    for(i=0 ; i<n ; i++)
+    {
+        for(j=0 ; j<n-1 ; j++)
+        {
+            if(array[j]>array[j+1])
+            {
+                temp        = array[j];
+                array[j]    = array[j+1];
+                array[j+1]  = temp;
+            }
+        }
+    }
+}
+
+CYCLES find_median(CYCLES array[] , int n)
+{
+    CYCLES median=0;
+    if(n%2 == 0)
+        median = (array[(n-1)/2] + array[n/2])/2.0;
+    else
+        median = array[n/2];
+
+    return median;
+}
+
+void maccess(ADDR_PTR p)
+{
+    asm volatile ("movq (%0), %%rax\n"
+    :
+    : "c" (p)
+    : "rax");
+}
+
+uint64_t rdtsc() 
+{
+    uint64_t a, d;
+    asm volatile ("mfence");
+    asm volatile ("rdtsc" : "=a" (a), "=d" (d));
+    a = (d<<32) | a;
+    asm volatile ("mfence");
+    return a;
+}

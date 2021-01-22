@@ -2,17 +2,40 @@
 
 void init_covert_channel()
 {
-    implement_me;
+    addr_send = (ADDR_PTR)strtok;
+    sender_wait_for_notification();
 }
 
 inline void send_bit_over_covert_channel(bit val)
 {
-    implement_me;
+    // Send each bit ITERATION times
+    for(int i = 0; i <ITERATIONS; i++)
+    {
+        if(val == 1)
+        {
+            clflush(addr_send);
+        }
+        else if (val == 0)
+        {
+            maccess(addr_send);
+        }
+
+        notify_receiver();
+        sender_wait_for_notification();
+    }
 }
 
 void send_byte_over_covert_channel(int val)
 {
-    implement_me;
+    char* bits = (char*)calloc(BYTE_SIZE, sizeof(char));
+    byte_to_bits(val, bits);
+
+    for(int i = 0; i < BYTE_SIZE; i++)
+    {
+        send_bit_over_covert_channel(bits[i]);
+    }
+
+    free(bits);
 }
 
 int main(int argc, char **argv)
