@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 
     printf("s1");
     init_covert_channel();
-
+    printf("sx1");
 
     do {
         val = getchar();
