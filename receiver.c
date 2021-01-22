@@ -83,15 +83,7 @@ void receive_over_covert_channel()
 int main(int argc, char **argv)
 {
 	init_covert_channel();
-
-	time_t transmission_start_time = time(0);
-	
-	receive_over_covert_channel();	
-
-    time_t transmission_end_time = time(0);
-    time_t total_transmission_time = transmission_end_time - transmission_start_time;
-    printf("Transmission time: %lu seconds", total_transmission_time);
-	
+	receive_over_covert_channel();
 	return 0;
 }
 
