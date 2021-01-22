@@ -51,9 +51,9 @@ int main(int argc, char **argv)
 {
     int val;
 
+    printf("s1");
     init_covert_channel();
 
-    printf("s1");
 
     do {
         val = getchar();
