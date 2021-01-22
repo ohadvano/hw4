@@ -44,7 +44,7 @@ void byte_to_bits(char input, char* bits)
 /* Extract byte to bit */
 void bits_to_byte(char* bits, char* output)
 {
-	char res;
+	char res = 0;
 	for(int i = 0; i < 8; i++) 
 	{
         printf("bits_to_byte, bit %d: %d\n", i, bits[i]);
