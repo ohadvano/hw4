@@ -20,7 +20,7 @@
 #define CYCLES uint32_t
 #define implement_me (void)0
 #define BYTE_SIZE 8
-#define ITERATIONS 1
+#define ITERATIONS 100
 #define MAX_ITERATIONS 100000
 
 typedef char bit;
