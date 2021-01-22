@@ -4,33 +4,32 @@
 CYCLES main_memory_access_latency()
 {
     int* tmp_for_address = (int*) malloc(sizeof(int));
-	CYCLES cur_med = 0, prev_med = 0, prev_prev_med = 0;
+	int elem_num = 0;
+	CYCLES curr_med = 0, prev_med = 0, prev_prev_med = 0;
 	CYCLES latencies[LATENCIES_CHECK_ITERATIONS] = {0}; 
 
-	int count = 1;
-    for (; count <= LATENCIES_CHECK_ITERATIONS; count++)
+    for (int i=0; i<LATENCIES_CHECK_ITERATIONS; i++)
     {
         clflush((ADDR_PTR)tmp_for_address);
-        latencies[count] = measure_access_time_to_addr((ADDR_PTR)tmp_for_address);
-
-        if(count == 1)
+        latencies[i] = measure_access_time_to_addr((ADDR_PTR)tmp_for_address);
+        elem_num++;
+        if(elem_num == 1)
             continue;
+        array_sort(latencies, elem_num);
+        curr_med = find_median(latencies, elem_num);
 
-        array_sort(latencies, count);
-        cur_med = find_median(latencies, count);
-
-        if(cur_med == prev_med && prev_med == prev_prev_med)
+        if(curr_med == prev_med && prev_med == prev_prev_med)
         {
-            printf("med = %u, max = %u, min = %u \n", cur_med, latencies[count-1], latencies[0]);
+            printf("med = %u, max = %u, min = %u \n", curr_med, latencies[elem_num-1], latencies[0]);
             free(tmp_for_address);
-            return cur_med;
+            return curr_med;
         }
         prev_prev_med = prev_med;
-        prev_med = cur_med;
+        prev_med = curr_med;
     }
-    printf("wrong values: med = %u, max = %u, min = %u \n", cur_med, latencies[count-1], latencies[0]);
+    printf("wrong values: med = %u, max = %u, min = %u \n", curr_med, latencies[elem_num-1], latencies[0]);
     free(tmp_for_address);
-    return cur_med; // won't get here
+    return curr_med; // won't get here
 }
 
 CYCLES last_level_cache_access_latency()
