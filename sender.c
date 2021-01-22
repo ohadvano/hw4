@@ -51,6 +51,7 @@ int main(int argc, char **argv)
 
 	 send_byte_over_covert_channel(val);
     } while(val != EOF);
+    notify_receiver();
     
     return 0;
 }

@@ -77,10 +77,12 @@ void receive_over_covert_channel()
        	do {
 		// Read the file over the covert-channel bit-by-bit.
 		// 
+		receiver_wait_for_notification();
 		val = receive_val_over_covert_channel();
 		if (val != EOF) {
 			putchar(val);
 		}		
+		notify_sender();
 	} while (val != EOF);
 }
 
