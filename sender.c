@@ -1,44 +1,39 @@
 #include "util.h"
 
-ADDR_PTR addr_send;
+ADDR_PTR address;
 
 void init_covert_channel()
 {
-    addr_send = (ADDR_PTR)strtok;
+    address = (ADDR_PTR)strcpy;
     sender_wait_for_notification();
 }
 
 inline void send_bit_over_covert_channel(bit val)
 {
-    //printf("s10");
-    for(int i = 0; i <ITERATIONS; i++)
+    for(int i = 0; i < ITERATIONS_PER_BIT; i++)
     {
         if(val == 1)
         {
-            printf("send bit 1\n");
-            clflush(addr_send);
+            clflush(address);
         }
         else if (val == 0)
         {
-            printf("send bit 0\n");
-            maccess(addr_send);
+            maccess(address);
         }
 
         notify_receiver();
-        //printf("s13");
         sender_wait_for_notification();
-        //printf("s14");
     }
 }
 
 void send_byte_over_covert_channel(int val)
 {
-    char* bits = (char*)calloc(BYTE_SIZE, sizeof(char));
-    byte_to_bits(val, bits);
+    char* bits_array = (char*)malloc(BYTE, sizeof(char));
+    byte_to_bits(val, bits_array);
 
-    for(int i = 0; i < BYTE_SIZE; i++)
+    for(int i = 0; i < BYTE; i++)
     {
-        send_bit_over_covert_channel(bits[i]);
+        send_bit_over_covert_channel(bits_array[i]);
     }
 
     free(bits);
@@ -47,20 +42,15 @@ void send_byte_over_covert_channel(int val)
 int main(int argc, char **argv)
 {
     int val;
-
-    //printf("s1");
     init_covert_channel();
-    //printf("sx1");
 
-    do {
+    do 
+    {
         val = getchar();
-        printf("\ngot val: %d\n", val);
-        //printf("s2");
 	    send_byte_over_covert_channel(val);
-        //printf("s3");
-    } while(val != EOF);
-    //printf("s4");
+    } 
+    while(val != EOF);
+
     notify_receiver();
-    //printf("s5");
     return 0;
 }

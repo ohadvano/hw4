@@ -35,7 +35,7 @@ void clflush(ADDR_PTR addr)
 /* Extracts 8 bits from a byte  */
 void byte_to_bits(char input, char* bits)
 {
-	for(int i = 0; i < 8; i++) 
+	for(int i = 0; i < BYTE_SIZE; i++) 
 	{
 		bits[i] = ((input >> i) & 0x01);
 	}
@@ -45,7 +45,7 @@ void byte_to_bits(char input, char* bits)
 void bits_to_byte(char* bits, char* output)
 {
 	char res = 0;
-	for(int i = 0; i < 8; i++) 
+	for(int i = 0; i < BYTE_SIZE; i++) 
 	{
 		res += bits[i] << i;
 	}
@@ -129,18 +129,18 @@ int receiver_wait_for_notification()
     }
 }
 
-void array_sort(CYCLES *array , int n)
+void sort(CYCLES *array , int n)
 { 
     int i, j, temp=0;
-    for(i=0 ; i<n ; i++)
+    for(i = 0; i < n; i++)
     {
-        for(j=0 ; j<n-1 ; j++)
+        for(j = 0; j < n - 1; j++)
         {
-            if(array[j]>array[j+1])
+            if(array[j] > array[j + 1])
             {
-                temp        = array[j];
-                array[j]    = array[j+1];
-                array[j+1]  = temp;
+                temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
             }
         }
     }
@@ -148,29 +148,29 @@ void array_sort(CYCLES *array , int n)
 
 CYCLES find_median(CYCLES array[] , int n)
 {
-    CYCLES median=0;
-    if(n%2 == 0)
-        median = (array[(n-1)/2] + array[n/2])/2.0;
+    CYCLES median = 0;
+    if(n % 2 == 0)
+        median = (array[(n - 1) / 2] + array[n / 2]) / 2.0;
     else
-        median = array[n/2];
+        median = array[n / 2];
 
     return median;
 }
 
-void maccess(ADDR_PTR p)
+void maccess(ADDR_PTR addr)
 {
     asm volatile ("movq (%0), %%rax\n"
     :
-    : "c" (p)
+    : "c" (addr)
     : "rax");
 }
 
-uint64_t rdtsc() 
+uint64_t rdtsc_with_fence() 
 {
     uint64_t a, d;
     asm volatile ("mfence");
     asm volatile ("rdtsc" : "=a" (a), "=d" (d));
-    a = (d<<32) | a;
+    a = (d << 32) | a;
     asm volatile ("mfence");
     return a;
 }

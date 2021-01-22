@@ -19,15 +19,15 @@
 #define ADDR_PTR uint64_t
 #define CYCLES uint32_t
 #define implement_me (void)0
-#define BYTE_SIZE 8
-#define ITERATIONS 100
+#define BYTE 8
+#define ITERATIONS_PER_BIT 100
 #define MAX_ITERATIONS 100000
+#define UPPER_BOUND 400
+#define LOWER_BOUND 50
+#define CACHE_MISS_LATENCY 150
 
 typedef char bit;
 
-#ifndef MISS_LATENCY
-#define MISS_LATENCY 150
-#endif
 
 // Measure access time to the given address
 CYCLES measure_access_time_to_addr(ADDR_PTR addr);
@@ -50,7 +50,7 @@ int sender_wait_for_notification();
 // Blocks until notify_receiver is called
 int receiver_wait_for_notification();
 
-void array_sort(CYCLES *array , int n);
+void sort(CYCLES *array , int n);
 CYCLES find_median(CYCLES array[] , int n);
 void maccess(ADDR_PTR p);
 uint64_t rdtsc();

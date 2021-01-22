@@ -1,114 +1,88 @@
 #include "util.h"
 
-ADDR_PTR addr_rec;
+ADDR_PTR address;
 
 void init_covert_channel()
 {
-	addr_rec = (ADDR_PTR)strtok;
+	address = (ADDR_PTR)strcpy;
 	notify_sender();
 }
 
 inline bit receive_bit_over_covert_channel()
 {
-	uint64_t start, end;
-	uint64_t sum = 0;
-	int count = ITERATIONS;
-    // Check each bit ITERATION times before determining if 0 or 1
-	for(int i = 0; i <ITERATIONS; i++)
+	uint64_t start, end, sum = 0;
+	int count = ITERATIONS_PER_BIT;
+	for(int i = 0; i < ITERATIONS_PER_BIT; i++)
 	{
-		start = rdtsc();
-		maccess(addr_rec);
-		end = rdtsc();
+		start = rdtsc_with_fence();
+		maccess(address);
+		end = rdtsc_with_fence();
 
-        if((end - start) > 500 || (end - start) < 15) //edge cases - filter out
-        {
+		uint64_t diff = end - start;
+        if(diff > UPPER_BOUND || diff < LOWER_BOUND)
             count--;
-        }
         else
-        {
-            sum += end - start;
-        }
+            sum += diff;
 
-        // If last ITERATION for this bit, finish to write down the final 0 or 1 value before notifying
-		if (i < ITERATIONS - 1)
+		if (i < ITERATIONS_PER_BIT - 1)
         {
             notify_sender();
             receiver_wait_for_notification();
         }
 	}
 
-    if((sum/count) <= MISS_LATENCY)
-    {
+    if((sum / count) <= CACHE_MISS_LATENCY)
         return 0;
-    }
-    else
-    {
-        return 1;
-    }
+
+	return 1;
 }
 
 int receive_val_over_covert_channel()
 {
 	bit b;
-	char ret_val;
-	char* bits = (bit*)calloc(8, sizeof(char));
+	char byte_value;
+	char* bits_array = (bit*)calloc(BYTE, sizeof(char));
 
-	//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr8\n");
-	for(int i = 0; i < BYTE_SIZE ; i++)
+	for(int i = 0; i < BYTE; i++)
 	{
-		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr9\n");
-		b = receive_bit_over_covert_channel();
-		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr10\n");
-		bits[i] = b;
-		// If last bit, finish to write down the full byte before notifying
-		if(i < BYTE_SIZE - 1)
-        {
-			//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr11\n");
-            notify_sender();
-			//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr12\n");
-            receiver_wait_for_notification();
-			//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr13\n");
-        }
+		bits_array[i] = receive_bit_over_covert_channel();
 
-		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr14\n");
+		if(i < BYTE - 1)
+        {
+            notify_sender();
+            receiver_wait_for_notification();
+        }
 	}
 
-	bits_to_byte(bits, &ret_val);
-	free(bits);
+	bits_to_byte(bits_array, &byte_value);
+	free(bits_array);
 
-	return ret_val;
+	return byte_value;
 }
 
 void receive_over_covert_channel()
 {
 	int val;
 
-	do {
-	    // Wait for new data from sender
-		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr4\n");
+	do 
+	{
         receiver_wait_for_notification();
-		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr5\n");
+
 		val = receive_val_over_covert_channel();
-		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr6\n");
-		if (val != EOF) {
+		if (val != EOF)
+		{
 			putchar(val);
-			printf("\n");
 		}
-		// Finish the whole byte, now ask for a new byte/finish
-		//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr7\n");
-        notify_sender();
-	} while (val != EOF);
-	//printf("\n");
+
+        //notify_sender();
+	} 
+	while (val != EOF);
 }
 
 int main(int argc, char **argv)
 {
-	//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr1\n");
 	init_covert_channel();
-	//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr2\n");
 	receive_over_covert_channel();
-	//printf("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr3\n");
-
 	return 0;
 }
 

@@ -8,14 +8,14 @@ CYCLES main_memory_access_latency()
 	CYCLES curr_med = 0, prev_med = 0, prev_prev_med = 0;
 	CYCLES latencies[MAX_ITERATIONS] = {0}; 
 
-    for (int i=0; i<MAX_ITERATIONS; i++)
+    for (int i = 0; i < MAX_ITERATIONS; i++)
     {
         clflush((ADDR_PTR)tmp_for_address);
         latencies[i] = measure_access_time_to_addr((ADDR_PTR)tmp_for_address);
         elem_num++;
         if(elem_num == 1)
             continue;
-        array_sort(latencies, elem_num);
+        sort(latencies, elem_num);
         curr_med = find_median(latencies, elem_num);
 
         if(curr_med == prev_med && prev_med == prev_prev_med)
@@ -24,6 +24,7 @@ CYCLES main_memory_access_latency()
             free(tmp_for_address);
             return curr_med;
         }
+		
         prev_prev_med = prev_med;
         prev_med = curr_med;
     }
@@ -48,7 +49,7 @@ CYCLES last_level_cache_access_latency()
         elem_num++;
         if(elem_num == 1)
             continue;
-        array_sort(latencies2, elem_num);
+        sort(latencies2, elem_num);
         curr_med = find_median(latencies2, elem_num);
 
         if(curr_med == prev_med && prev_med == prev_prev_med)
@@ -57,9 +58,11 @@ CYCLES last_level_cache_access_latency()
             free(tmp_for_address2);
             return curr_med;
         }
+
         prev_prev_med = prev_med;
         prev_med = curr_med;
     }
+
     printf("wrong values: med_cache = %u, max_cache = %u, min_cache = %u \n", curr_med, latencies2[elem_num-1], latencies2[0]);
     free(tmp_for_address2);
     return curr_med; // won't get here
