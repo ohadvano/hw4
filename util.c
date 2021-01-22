@@ -148,12 +148,17 @@ void sort(CYCLES *array , int n)
 
 CYCLES find_median(CYCLES array[] , int n)
 {
+    int median_index = (n + 1) / 2 - 1;
+    CYCLES median2 = array[median_index];
+
     CYCLES median = 0;
     if(n % 2 == 0)
         median = (array[(n - 1) / 2] + array[n / 2]) / 2.0;
     else
         median = array[n / 2];
 
+    assert(median == median2);
+    
     return median;
 }
 

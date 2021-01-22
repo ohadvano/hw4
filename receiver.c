@@ -1,27 +1,27 @@
 #include "util.h"
 
-ADDR_PTR address;
+ADDR_PTR shared_covert_address;
 
 void init_covert_channel()
 {
-	address = (ADDR_PTR)strcpy;
+	shared_covert_address = (ADDR_PTR)strcpy;
 	notify_sender();
 }
 
 inline bit receive_bit_over_covert_channel()
 {
+	int successful_transmissions = 0;
 	uint64_t start, end, sum = 0;
-	int count = 0;
 	for(int i = 0; i < ITERATIONS_PER_BIT; i++)
 	{
 		start = rdtsc_with_fence();
-		maccess(address);
+		maccess(shared_covert_address);
 		end = rdtsc_with_fence();
 
 		uint64_t diff = end - start;
         if(diff < UPPER_BOUND && diff > LOWER_BOUND)
 		{
-			count++;
+			successful_transmissions++;
             sum += diff;
 		}
 
@@ -32,7 +32,7 @@ inline bit receive_bit_over_covert_channel()
         }
 	}
 
-    if((sum / count) <= CACHE_MISS_LATENCY)
+    if((sum / successful_transmissions) <= CACHE_MISS_LATENCY)
         return 0;
 
 	return 1;

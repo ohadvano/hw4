@@ -1,10 +1,10 @@
 #include "util.h"
 
-ADDR_PTR address;
+ADDR_PTR shared_covert_address;
 
 void init_covert_channel()
 {
-    address = (ADDR_PTR)strcpy;
+    shared_covert_address = (ADDR_PTR)strcpy;
     sender_wait_for_notification();
 }
 
@@ -14,7 +14,7 @@ inline void send_bit_over_covert_channel(bit val)
     {
         if(val == 1)
         {
-            clflush(address);
+            clflush(shared_covert_address);
         }
 
         notify_receiver();
