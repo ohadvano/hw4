@@ -149,23 +149,6 @@ void sort(CYCLES *a, int n)
     }
 }
 
-void array_sort(CYCLES *array , int n)
-{ 
-    int i, j, temp=0;
-    for(i=0 ; i<n ; i++)
-    {
-        for(j=0 ; j<n-1 ; j++)
-        {
-            if(array[j]>array[j+1])
-            {
-                temp        = array[j];
-                array[j]    = array[j+1];
-                array[j+1]  = temp;
-            }
-        }
-    }
-}
-
 CYCLES find_median(CYCLES array[] , int n)
 {
     CYCLES median=0;
