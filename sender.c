@@ -55,7 +55,7 @@ int main(int argc, char **argv)
 
     do {
         val = getchar();
-        printf("got val: %d\n", val);
+        printf("\ngot val: %d\n", val);
         //printf("s2");
 	    send_byte_over_covert_channel(val);
         //printf("s3");
