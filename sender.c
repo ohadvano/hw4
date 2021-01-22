@@ -39,7 +39,7 @@ void send_byte_over_covert_channel(int val)
     //printf("s7");
     for(int i = 0; i < BYTE_SIZE; i++)
     {
-        printf("bit: %d", bits[i]);
+        printf("bit: %d\n", bits[i]);
         send_bit_over_covert_channel(bits[i]);
         //printf("s9");
     }
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 
     do {
         val = getchar();
-        printf("got val: %d", val);
+        printf("got val: %d\n", val);
         //printf("s2");
 	    send_byte_over_covert_channel(val);
         //printf("s3");
