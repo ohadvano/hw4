@@ -36,12 +36,10 @@ void send_byte_over_covert_channel(int val)
     char* bits = (char*)calloc(BYTE_SIZE, sizeof(char));
     byte_to_bits(val, bits);
 
-    //printf("s7");
     for(int i = 0; i < BYTE_SIZE; i++)
     {
         printf("bit: %d\n", bits[i]);
         send_bit_over_covert_channel(bits[i]);
-        //printf("s9");
     }
 
     free(bits);
