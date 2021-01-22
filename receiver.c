@@ -15,9 +15,7 @@ inline bit receive_bit_over_covert_channel()
 	for(int i = 0; i < ITERATIONS_PER_BIT; i++)
 	{
 		start = rdtsc_with_fence();
-		uint64_t* addr = (uint64_t*)shared_covert_address;
-		*addr = 0;
-		// maccess(shared_covert_address);
+		access_by_address(shared_covert_address);
 		end = rdtsc_with_fence();
 
 		uint64_t diff = end - start;
@@ -34,7 +32,7 @@ inline bit receive_bit_over_covert_channel()
         }
 	}
 
-    if((sum / successful_transmissions) <= CACHE_MISS_LATENCY)
+    if((sum / successful_transmissions) <= MISS_LATENCY)
         return 0;
 
 	return 1;

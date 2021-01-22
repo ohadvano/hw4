@@ -5,10 +5,10 @@ CYCLES main_memory_access_latency()
 {
     int* memory_address = (int*)malloc(sizeof(int));
 	CYCLES curr_med = 0, prev_med = 0, prev_prev_med = 0;
-	CYCLES latencies[MAX_ITERATIONS] = {0}; 
+	CYCLES latencies[LATENCIES_CHECK_ITERATIONS] = {0}; 
 
 	int count = 1;
-    for (; count <= MAX_ITERATIONS; count++)
+    for (; count <= LATENCIES_CHECK_ITERATIONS; count++)
     {
         clflush((ADDR_PTR)memory_address);
         latencies[count] = measure_access_time_to_addr((ADDR_PTR)memory_address);

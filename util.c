@@ -149,7 +149,7 @@ void sort(CYCLES *a, int n)
     }
 }
 
-void maccess(ADDR_PTR addr)
+void access_by_address(ADDR_PTR addr)
 {
     asm volatile ("movq (%0), %%rax\n"
     :
