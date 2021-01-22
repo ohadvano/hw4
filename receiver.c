@@ -53,16 +53,24 @@ int receive_val_over_covert_channel()
 	char ret_val;
 	char* bits = (bit*)calloc(8, sizeof(char));
 
+	printf("r8");
 	for(int i = 0; i < BYTE_SIZE ; i++)
 	{
+		printf("r9");
 		b = receive_bit_over_covert_channel();
+		printf("r10");
 		bits[i] = b;
 		// If last bit, finish to write down the full byte before notifying
 		if(i < BYTE_SIZE - 1)
         {
+			printf("r11");
             notify_sender();
+			printf("r12");
             receiver_wait_for_notification();
+			printf("r13");
         }
+
+		printf("r14");
 	}
 
 	bits_to_byte(bits, &ret_val);
@@ -77,12 +85,16 @@ void receive_over_covert_channel()
 
 	do {
 	    // Wait for new data from sender
+		printf("r4");
         receiver_wait_for_notification();
+		printf("r5");
 		val = receive_val_over_covert_channel();
+		printf("r6");
 		if (val != EOF) {
 			putchar(val);
 		}
 		// Finish the whole byte, now ask for a new byte/finish
+		printf("r7");
         notify_sender();
 	} while (val != EOF);
 	printf("\n");
@@ -90,8 +102,11 @@ void receive_over_covert_channel()
 
 int main(int argc, char **argv)
 {
+	printf("r1");
 	init_covert_channel();
+	printf("r2");
 	receive_over_covert_channel();
+	printf("r3");
 
 	return 0;
 }
