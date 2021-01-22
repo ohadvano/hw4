@@ -11,7 +11,7 @@ void init_covert_channel()
 inline bit receive_bit_over_covert_channel()
 {
 	uint64_t start, end, sum = 0;
-	int count = ITERATIONS_PER_BIT;
+	int count = 0;
 	for(int i = 0; i < ITERATIONS_PER_BIT; i++)
 	{
 		start = rdtsc_with_fence();
@@ -19,10 +19,11 @@ inline bit receive_bit_over_covert_channel()
 		end = rdtsc_with_fence();
 
 		uint64_t diff = end - start;
-        if(diff > UPPER_BOUND || diff < LOWER_BOUND)
-            count--;
-        else
+        if(diff < UPPER_BOUND && diff > LOWER_BOUND)
+		{
+			count++;
             sum += diff;
+		}
 
 		if (i < ITERATIONS_PER_BIT - 1)
         {
@@ -62,21 +63,21 @@ int receive_val_over_covert_channel()
 
 void receive_over_covert_channel()
 {
-	int val;
+	int byte_as_int = 0;
 
 	do 
 	{
         receiver_wait_for_notification();
 
-		val = receive_val_over_covert_channel();
-		if (val != EOF)
+		byte_as_int = receive_val_over_covert_channel();
+		if (byte_as_int != EOF)
 		{
-			putchar(val);
+			putchar(byte_as_int);
 		}
 
         notify_sender();
 	} 
-	while (val != EOF);
+	while (byte_as_int != EOF);
 }
 
 int main(int argc, char **argv)
