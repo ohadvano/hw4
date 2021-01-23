@@ -52,9 +52,9 @@ CYCLES latency_calculator(bool is_cache)
 
 int main()
 {
-	// CYCLES mem_access_latency = main_memory_access_latency();
+	CYCLES mem_access_latency = main_memory_access_latency();
 	CYCLES l1_access_latency = first_level_cache_access_latency();
 
-	// printf("median main memory access latency: %u\n", mem_access_latency);
+	printf("median main memory access latency: %u\n", mem_access_latency);
 	printf("median first level cache access latency: %u\n", l1_access_latency);
 }
