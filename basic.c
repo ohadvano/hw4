@@ -3,6 +3,16 @@
 
 CYCLES main_memory_access_latency()
 {
+    return latency_calculator(false);
+}
+
+CYCLES first_level_cache_access_latency()
+{
+	return latency_calculator(true);
+}
+
+CYCLES latency_calculator(bool is_cache)
+{
     int* memory_address = (int*)malloc(sizeof(int));
 	CYCLES curr_med = 0, prev_med = 0, prev_prev_med = 0;
 	CYCLES latencies[LATENCIES_CHECK_ITERATIONS] = {0}; 
@@ -10,7 +20,11 @@ CYCLES main_memory_access_latency()
 	int count = 1;
     for (; count <= LATENCIES_CHECK_ITERATIONS; count++)
     {
-        clflush((ADDR_PTR)memory_address);
+        if (is_cache == true)
+            access_by_address((ADDR_PTR)memory_address);
+        else
+            clflush((ADDR_PTR)memory_address);
+
         latencies[count - 1] = measure_access_time_to_addr((ADDR_PTR)memory_address);
 
         if(count == 1)
@@ -36,26 +50,13 @@ CYCLES main_memory_access_latency()
     return -1;
 }
 
-CYCLES last_level_cache_access_latency()
-{
-	return 0;
-}
-
-CYCLES first_level_cache_access_latency()
-{
-	return 0;
-}
-
 int main()
 {
 	CYCLES mem_access_latency;
        	mem_access_latency = main_memory_access_latency();
 	CYCLES l1_access_latency;
        	l1_access_latency = first_level_cache_access_latency();
-	CYCLES llc_access_latency;
-       	llc_access_latency = last_level_cache_access_latency();
 
 	printf("median main memory access latency: %u\n", mem_access_latency);
 	printf("median first level cache access latency: %u\n", l1_access_latency);
-	printf("median last level cache access latency: %u\n", llc_access_latency);
 }
